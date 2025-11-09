@@ -155,7 +155,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
 
   if (showConfirmLogout) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 flex items-center justify-center px-6">
+      <div className="h-full min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 flex items-center justify-center px-6">
         <Card className="p-6 bg-gray-900/50 border-gray-800 max-w-md w-full">
           <h2 className="text-white text-xl mb-4">¿Cerrar sesión?</h2>
           <p className="text-gray-200 mb-6">
@@ -182,7 +182,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20">
+    <div className="h-full min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 overflow-y-auto">
       <div className="px-6 pt-8">
         {/* Header */}
         <div className="mb-6">

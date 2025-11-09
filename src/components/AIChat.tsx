@@ -86,7 +86,7 @@ export function AIChat() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 flex flex-col pb-20">
+    <div className="h-full min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 flex flex-col pb-20 overflow-y-auto">
       <div className="px-6 pt-8 pb-4">
         <div className="flex items-center gap-3 mb-2">
           <div className="bg-gradient-to-br from-[#FF4D00] to-[#E64500] p-3 rounded-full shadow-lg shadow-[#FF4D00]/30">

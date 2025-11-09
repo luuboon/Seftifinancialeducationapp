@@ -44,7 +44,7 @@ export function Welcome({ onNavigate, userName, profileData }: WelcomeProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20">
+    <div className="h-full min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 overflow-y-auto">
       {/* Header */}
       <div className="px-6 pt-8 pb-6">
         {userName ? (
