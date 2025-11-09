@@ -41,7 +41,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
       normalizedDiff = diff > 0 ? diff - total : diff + total;
     }
 
-    // Center item
+    // Center item - tarjeta principal
     if (normalizedDiff === 0) {
       return {
         x: "0%",
@@ -52,36 +52,46 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
         zIndex: 10,
       };
     }
-    // Right items
-    else if (normalizedDiff > 0) {
+    // Left item - tarjeta a la izquierda
+    else if (normalizedDiff === -1) {
       return {
-        x: `${50 + normalizedDiff * 30}%`,
-        scale: 0.75 - normalizedDiff * 0.15,
-        rotateY: -45 - normalizedDiff * 10,
-        z: -100 * normalizedDiff,
-        opacity: Math.max(0.3, 1 - normalizedDiff * 0.3),
-        zIndex: 10 - normalizedDiff,
+        x: "-70%",
+        scale: 0.85,
+        rotateY: 15,
+        z: -80,
+        opacity: 0.75,
+        zIndex: 5,
       };
     }
-    // Left items
-    else {
-      const absDiff = Math.abs(normalizedDiff);
+    // Right item - tarjeta a la derecha
+    else if (normalizedDiff === 1) {
       return {
-        x: `${-50 - absDiff * 30}%`,
-        scale: 0.75 - absDiff * 0.15,
-        rotateY: 45 + absDiff * 10,
-        z: -100 * absDiff,
-        opacity: Math.max(0.3, 1 - absDiff * 0.3),
-        zIndex: 10 - absDiff,
+        x: "70%",
+        scale: 0.85,
+        rotateY: -15,
+        z: -80,
+        opacity: 0.75,
+        zIndex: 5,
+      };
+    }
+    // Far items - tarjetas lejanas (ocultas)
+    else {
+      return {
+        x: normalizedDiff > 0 ? "150%" : "-150%",
+        scale: 0.5,
+        rotateY: normalizedDiff > 0 ? -45 : 45,
+        z: -200,
+        opacity: 0,
+        zIndex: 0,
       };
     }
   };
 
   return (
-    <div className="relative w-full py-12 overflow-x-hidden">
+    <div className="relative w-full py-8 px-1 overflow-visible">
       {/* 3D Container */}
       <div 
-        className="relative h-[400px] flex items-center justify-center overflow-hidden"
+        className="relative h-[480px] flex items-center justify-center overflow-visible"
         style={{ perspective: "1000px" }}
       >
         {items.map((item, index) => {
@@ -91,7 +101,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
           return (
             <motion.div
               key={item.id}
-              className="absolute w-72 cursor-pointer"
+              className="absolute w-full max-w-[340px] cursor-pointer px-1"
               initial={false}
               animate={{
                 x: style.x,
@@ -102,29 +112,32 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
               }}
               transition={{
                 type: "spring",
-                stiffness: 300,
-                damping: 30,
+                stiffness: 260,
+                damping: 25,
+                mass: 0.8,
               }}
               style={{
                 zIndex: style.zIndex,
                 transformStyle: "preserve-3d",
+                pointerEvents: style.opacity > 0 ? "auto" : "none",
               }}
               onClick={() => {
-                if (!isCenter) {
-                  setCurrentIndex(index);
-                } else {
+                if (isCenter) {
                   onSelectItem(item);
+                } else if (style.opacity > 0) {
+                  // Si es una tarjeta lateral visible, navegar a ella
+                  setCurrentIndex(index);
                 }
               }}
             >
                 <div 
-                  className={`bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl overflow-hidden border-2 ${
-                    isCenter ? "border-[#FF4D00]" : "border-gray-800/20"
+                  className={`bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl overflow-hidden border-2 transition-all duration-300 ${
+                    isCenter ? "border-[#FF4D00]" : "border-gray-700/30"
                   }`}
                   style={{
                     boxShadow: isCenter 
-                      ? "0 20px 60px rgba(255, 77, 0, 0.4)" 
-                      : "0 10px 30px rgba(0, 0, 0, 0.3)"
+                      ? "0 25px 80px rgba(255, 77, 0, 0.5), 0 10px 40px rgba(255, 77, 0, 0.3)" 
+                      : "0 15px 40px rgba(0, 0, 0, 0.4), 0 5px 20px rgba(0, 0, 0, 0.2)"
                   }}
                 >
                   {/* Card Header */}
