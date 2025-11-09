@@ -126,8 +126,36 @@
     @apply border-border outline-ring/50;
   }
 
+  /* PWA: Hacer que ocupe toda la pantalla sin espacios blancos */
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
+    /* PWA: Deshabilitar el overscroll/bounce en móviles */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    /* PWA: Fijar la posición para evitar el rebote */
+    position: fixed;
+    /* PWA: Deshabilitar zoom en inputs */
+    touch-action: pan-y;
+  }
+
+  /* PWA: Deshabilitar pull-to-refresh */
+  body {
+    overscroll-behavior-y: contain;
+  }
+
+  /* PWA: El contenedor principal debe permitir scroll interno */
+  #root {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -188,4 +216,37 @@
 
 html {
   font-size: var(--font-size);
+  /* PWA: Prevenir el pull-to-refresh en Chrome Android */
+  overscroll-behavior-y: contain;
+}
+
+/* PWA: Estilos específicos para comportamiento nativo */
+* {
+  /* Prevenir el rebote en iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Deshabilitar el tap highlight en móviles */
+  -webkit-tap-highlight-color: transparent;
+  /* Deshabilitar el callout en iOS (menú contextual al mantener presionado) */
+  -webkit-touch-callout: none;
+}
+
+/* PWA: Prevenir el zoom en inputs (iOS) */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* PWA: Deshabilitar el pull-to-refresh en toda la app */
+.no-pull-refresh {
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
+}
+
+/* PWA: Safe area para dispositivos con notch */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
 }
