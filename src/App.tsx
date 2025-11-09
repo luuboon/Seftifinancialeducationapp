@@ -8,13 +8,10 @@ import { ProfileData } from "./components/ProfileForm";
 import { Recommendations } from "./components/Recommendations";
 import { GoalSimulator } from "./components/GoalSimulator";
 import { EducationModule } from "./components/EducationModule";
-import { AIChat } from "./components/AIChat";
 import { BottomNav } from "./components/BottomNav";
-import { MessageCircle } from "lucide-react";
-import { Button } from "./components/ui/button";
 import { initializeDemoData } from "./utils/demoData";
 
-type Screen = "welcome" | "profile" | "editProfile" | "recommendations" | "simulator" | "learn" | "chat";
+type Screen = "welcome" | "profile" | "editProfile" | "recommendations" | "simulator" | "learn";
 type AuthScreen = "login" | "register";
 
 interface User {
@@ -31,7 +28,6 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [currentScreen, setCurrentScreen] = useState<Screen>("welcome");
   const [activeTab, setActiveTab] = useState("home");
-  const [showChat, setShowChat] = useState(false);
 
   // Initialize demo data and check if user is already logged in
   useEffect(() => {
@@ -152,22 +148,6 @@ export default function App() {
     }
   }
 
-  // Show chat overlay
-  if (showChat) {
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-black via-gray-900 to-red-950 overflow-y-auto relative">
-        <div className="max-w-md mx-auto min-h-full">
-          <AIChat />
-          <Button
-            onClick={() => setShowChat(false)}
-            className="fixed top-4 right-4 z-50 bg-gray-800 hover:bg-gray-700 text-white rounded-full w-12 h-12 p-0 border border-gray-700"
-          >
-            ✕
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full h-full bg-gradient-to-br from-black via-gray-900 to-red-950 overflow-y-auto relative">
@@ -210,14 +190,6 @@ export default function App() {
         {currentScreen === "simulator" && <GoalSimulator />}
         
         {currentScreen === "learn" && <EducationModule />}
-
-        {/* Floating Chat Button */}
-        <Button
-          onClick={() => setShowChat(true)}
-          className="fixed bottom-24 right-6 z-50 bg-gradient-to-br from-[#FF4D00] to-[#E64500] hover:from-[#E64500] hover:to-[#CC3D00] text-white rounded-full w-14 h-14 shadow-xl shadow-[#FF4D00]/40 p-0"
-        >
-          <MessageCircle size={24} />
-        </Button>
 
         {/* Bottom Navigation */}
         <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
