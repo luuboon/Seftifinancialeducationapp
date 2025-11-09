@@ -125,72 +125,78 @@ export function Recommendations({ onNavigate, userProfile }: RecommendationsProp
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6 bg-gray-900/50">
-            <TabsTrigger value="portfolio" className="data-[state=active]:bg-[#FF4D00]">
-              <PieChart size={16} className="mr-2" />
-              Portafolio
-            </TabsTrigger>
-            <TabsTrigger value="retirement" className="data-[state=active]:bg-[#FF4D00]">
-              <Calendar size={16} className="mr-2" />
-              Retiro
-            </TabsTrigger>
-            <TabsTrigger value="instruments" className="data-[state=active]:bg-[#FF4D00]">
-              <TrendingUp size={16} className="mr-2" />
-              Opciones
-            </TabsTrigger>
-          </TabsList>
+        <TabsList className="grid w-full grid-cols-3 mb-6 bg-transparent gap-1">
+          <TabsTrigger 
+            value="portfolio" 
+            className="text-white data-[state=active]:bg-[#FF4D00] data-[state=active]:text-black transition-all duration-200 py-2 rounded-lg"
+          >
+            <PieChart size={16} className="mr-2" />
+            Portafolio
+          </TabsTrigger>
+          <TabsTrigger 
+            value="retirement" 
+            className="text-white data-[state=active]:bg-[#FF4D00] data-[state=active]:text-black transition-all duration-200 py-2 rounded-lg"
+          >
+            <Calendar size={16} className="mr-2" />
+            Retiro
+          </TabsTrigger>
+          <TabsTrigger 
+            value="instruments" 
+            className="text-white data-[state=active]:bg-[#FF4D00] data-[state=active]:text-black transition-all duration-200 py-2 rounded-lg"
+          >
+            <TrendingUp size={16} className="mr-2" />
+            Opciones
+          </TabsTrigger>
+        </TabsList>
 
-          {/* Portfolio Tab */}
-          <TabsContent value="portfolio" className="space-y-6">
-            <InvestmentPortfolio profile={userProfile || null} />
-          </TabsContent>
+        {/* El resto del contenido permanece igual */}
+        <TabsContent value="portfolio" className="space-y-6">
+          <InvestmentPortfolio profile={userProfile || null} />
+        </TabsContent>
 
-          {/* Retirement Tab */}
-          <TabsContent value="retirement" className="space-y-6">
-            <RetirementPlanner profile={userProfile || null} />
-          </TabsContent>
+        <TabsContent value="retirement" className="space-y-6">
+          <RetirementPlanner profile={userProfile || null} />
+        </TabsContent>
 
-          {/* Instruments Tab */}
-          <TabsContent value="instruments" className="space-y-6">
-            {/* 3D Carousel */}
-            <Carousel3D items={investmentOptions} onSelectItem={setSelectedItem} />
-
-            {/* Why These Options Card */}
-            <Card className="p-6 bg-gradient-to-r from-[#FF4D00]/20 to-red-900/20 border-[#FF4D00]/30">
-              <div className="flex gap-3">
-                <div className="bg-[#FF4D00]/20 p-3 rounded-lg">
-                  <Award className="text-[#FF4D00]" size={24} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-white mb-2">Instrumentos Verificados</h3>
-                  <p className="text-gray-200 text-sm">
-                    SEFTI te muestra solo productos financieros de empresas confiables, 
-                    reguladas por la CNBV y CONSAR, con costos justos para trabajadores.
-                  </p>
-                </div>
+        <TabsContent value="instruments" className="space-y-6">
+          <Carousel3D items={investmentOptions} onSelectItem={setSelectedItem} />
+          
+          {/* Why These Options Card */}
+          <Card className="p-6 bg-gradient-to-r from-[#FF4D00]/20 to-red-900/20 border-[#FF4D00]/30">
+            <div className="flex gap-3">
+              <div className="bg-[#FF4D00]/20 p-3 rounded-lg">
+                <Award className="text-[#FF4D00]" size={24} />
               </div>
-            </Card>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
-              <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
-                <TrendingUp className="text-[#FF4D00] mx-auto mb-2" size={24} />
-                <p className="text-2xl text-white mb-1">8</p>
-                <p className="text-xs text-gray-400">Opciones</p>
-              </Card>
-              <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
-                <Shield className="text-green-500 mx-auto mb-2" size={24} />
-                <p className="text-2xl text-white mb-1">100%</p>
-                <p className="text-xs text-gray-400">Reguladas</p>
-              </Card>
-              <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
-                <Award className="text-yellow-500 mx-auto mb-2" size={24} />
-                <p className="text-2xl text-white mb-1">$1+</p>
-                <p className="text-xs text-gray-400">Desde</p>
-              </Card>
+              <div className="flex-1">
+                <h3 className="text-white mb-2">Instrumentos Verificados</h3>
+                <p className="text-gray-200 text-sm">
+                  SEFTI te muestra solo productos financieros de empresas confiables, 
+                  reguladas por la CNBV y CONSAR, con costos justos para trabajadores.
+                </p>
+              </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          </Card>
+
+    {/* Quick Stats */}
+    <div className="grid grid-cols-3 gap-4">
+      <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
+        <TrendingUp className="text-[#FF4D00] mx-auto mb-2" size={24} />
+        <p className="text-2xl text-white mb-1">8</p>
+        <p className="text-xs text-gray-400">Opciones</p>
+      </Card>
+      <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
+        <Shield className="text-green-500 mx-auto mb-2" size={24} />
+        <p className="text-2xl text-white mb-1">100%</p>
+        <p className="text-xs text-gray-400">Reguladas</p>
+      </Card>
+      <Card className="p-4 bg-gray-900/50 border-gray-800 text-center">
+        <Award className="text-yellow-500 mx-auto mb-2" size={24} />
+        <p className="text-2xl text-white mb-1">$1+</p>
+        <p className="text-xs text-gray-400">Desde</p>
+      </Card>
+    </div>
+  </TabsContent>
+</Tabs>
       </div>
 
       {/* Detail Dialog */}
