@@ -8,6 +8,7 @@ import {
   CreditCard, Shield, Lightbulb, HeartHandshake, Building2,
   Smartphone, LogOut, Edit, Download, Calendar, RefreshCw, Sparkles
 } from "lucide-react";
+import jsPDF from "jspdf";
 
 interface ProfileViewProps {
   userEmail: string;
@@ -162,85 +163,129 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
   };
 
   const generatePDF = () => {
-    // Crear el contenido del PDF
-    const content = `
-SEFTI - PORTAFOLIO DE INVERSIÓN PERSONALIZADO
-==============================================
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPosition = 20;
 
-INFORMACIÓN DEL CLIENTE
------------------------
-Nombre: ${userName}
-Email: ${userEmail}
-Fecha de generación: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+    // Función auxiliar para agregar texto
+    const addText = (text: string, fontSize: number = 10, isBold: boolean = false) => {
+      doc.setFontSize(fontSize);
+      if (isBold) {
+        doc.setFont("helvetica", "bold");
+      } else {
+        doc.setFont("helvetica", "normal");
+      }
+      
+      const lines = doc.splitTextToSize(text, pageWidth - 40);
+      lines.forEach((line: string) => {
+        if (yPosition > 280) {
+          doc.addPage();
+          yPosition = 20;
+        }
+        doc.text(line, 20, yPosition);
+        yPosition += fontSize * 0.5;
+      });
+    };
 
-PERFIL FINANCIERO
------------------
-Edad: ${profileData.age} años
-Ingresos mensuales: $${parseInt(profileData.income).toLocaleString('es-MX')} MXN
-Gastos fijos: $${parseInt(profileData.fixedExpenses).toLocaleString('es-MX')} MXN
-Capacidad de ahorro: $${(parseInt(profileData.income) - parseInt(profileData.fixedExpenses)).toLocaleString('es-MX')} MXN
+    // Título principal
+    doc.setFillColor(255, 77, 0);
+    doc.rect(0, 0, pageWidth, 35, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text("SEFTI - PORTAFOLIO DE INVERSIÓN", pageWidth / 2, 15, { align: 'center' });
+    doc.setFontSize(14);
+    doc.text("PERSONALIZADO", pageWidth / 2, 25, { align: 'center' });
+    
+    yPosition = 45;
+    doc.setTextColor(0, 0, 0);
 
-PERFIL DE INVERSIÓN
--------------------
-Tolerancia al riesgo: ${getDisplayValue("riskTolerance", profileData.riskTolerance)}
-Horizonte de inversión: ${getDisplayValue("investmentHorizon", profileData.investmentHorizon)}
-Conocimientos financieros: ${getDisplayValue("financialKnowledge", profileData.financialKnowledge)}
-Meta principal: ${getDisplayValue("goal", profileData.goal)}
+    // Información del cliente
+    addText("INFORMACIÓN DEL CLIENTE", 14, true);
+    yPosition += 5;
+    addText(`Nombre: ${userName}`, 10);
+    addText(`Email: ${userEmail}`, 10);
+    addText(`Fecha: ${new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}`, 10);
+    yPosition += 8;
 
-RECOMENDACIONES PERSONALIZADAS
--------------------------------
-Basado en tu perfil ${profileData.riskTolerance}, te recomendamos:
+    // Perfil financiero
+    addText("PERFIL FINANCIERO", 14, true);
+    yPosition += 5;
+    addText(`Edad: ${profileData.age} años`, 10);
+    addText(`Ingresos mensuales: $${parseInt(profileData.income).toLocaleString('es-MX')} MXN`, 10);
+    addText(`Gastos fijos: $${parseInt(profileData.fixedExpenses).toLocaleString('es-MX')} MXN`, 10);
+    addText(`Capacidad de ahorro: $${(parseInt(profileData.income) - parseInt(profileData.fixedExpenses)).toLocaleString('es-MX')} MXN`, 10);
+    yPosition += 8;
 
-${profileData.riskTolerance === "conservador" ? `
-1. CETES (70%): Inversión segura gubernamental con rendimiento garantizado
-2. Cuenta de ahorro de alto rendimiento (20%): Liquidez inmediata
-3. Fondo de inversión de bajo riesgo (10%): Diversificación moderada
+    // Perfil de inversión
+    addText("PERFIL DE INVERSIÓN", 14, true);
+    yPosition += 5;
+    addText(`Tolerancia al riesgo: ${getDisplayValue("riskTolerance", profileData.riskTolerance)}`, 10);
+    addText(`Horizonte: ${getDisplayValue("investmentHorizon", profileData.investmentHorizon)}`, 10);
+    addText(`Conocimientos: ${getDisplayValue("financialKnowledge", profileData.financialKnowledge)}`, 10);
+    addText(`Meta principal: ${getDisplayValue("goal", profileData.goal)}`, 10);
+    yPosition += 8;
 
-Rendimiento esperado: 6-8% anual
-Riesgo: Bajo
-` : profileData.riskTolerance === "moderado" ? `
-1. Fondos de inversión mixtos (50%): Balance entre riesgo y rendimiento
-2. CETES y bonos (30%): Seguridad y estabilidad
-3. ETFs de mercado (20%): Crecimiento a largo plazo
+    // Recomendaciones personalizadas
+    addText("RECOMENDACIONES PERSONALIZADAS", 14, true);
+    yPosition += 5;
+    addText(`Basado en tu perfil ${profileData.riskTolerance}:`, 10, true);
+    yPosition += 3;
 
-Rendimiento esperado: 9-12% anual
-Riesgo: Medio
-` : `
-1. ETFs y acciones (60%): Alto potencial de crecimiento
-2. Fondos de inversión agresivos (25%): Diversificación activa
-3. CETES (15%): Reserva de emergencia
+    if (profileData.riskTolerance === "conservador") {
+      addText("1. CETES (70%): Inversión segura gubernamental con rendimiento garantizado", 10);
+      addText("2. Cuenta de ahorro de alto rendimiento (20%): Liquidez inmediata", 10);
+      addText("3. Fondo de inversión de bajo riesgo (10%): Diversificación moderada", 10);
+      yPosition += 3;
+      addText("Rendimiento esperado: 6-8% anual | Riesgo: Bajo", 10, true);
+    } else if (profileData.riskTolerance === "moderado") {
+      addText("1. Fondos de inversión mixtos (50%): Balance entre riesgo y rendimiento", 10);
+      addText("2. CETES y bonos (30%): Seguridad y estabilidad", 10);
+      addText("3. ETFs de mercado (20%): Crecimiento a largo plazo", 10);
+      yPosition += 3;
+      addText("Rendimiento esperado: 9-12% anual | Riesgo: Medio", 10, true);
+    } else {
+      addText("1. ETFs y acciones (60%): Alto potencial de crecimiento", 10);
+      addText("2. Fondos de inversión agresivos (25%): Diversificación activa", 10);
+      addText("3. CETES (15%): Reserva de emergencia", 10);
+      yPosition += 3;
+      addText("Rendimiento esperado: 12-18% anual | Riesgo: Alto", 10, true);
+    }
+    yPosition += 8;
 
-Rendimiento esperado: 12-18% anual
-Riesgo: Alto
-`}
+    // Plan de acción
+    addText("PLAN DE ACCIÓN", 14, true);
+    yPosition += 5;
+    addText("1. Establece un fondo de emergencia de 3-6 meses de gastos", 10);
+    addText(`2. Contribuye regularmente ${profileData.contributionFrequency}`, 10);
+    addText("3. Revisa tu portafolio trimestralmente", 10);
+    addText("4. Ajusta según cambios en el mercado", 10);
+    yPosition += 8;
 
-PLAN DE ACCIÓN
---------------
-1. Establece un fondo de emergencia de 3-6 meses de gastos
-2. Contribuye regularmente ${profileData.contributionFrequency}
-3. Revisa tu portafolio trimestralmente
-4. Ajusta según cambios en el mercado
+    // Importante
+    doc.setFillColor(255, 235, 59);
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    doc.rect(15, yPosition - 5, pageWidth - 30, 30, 'F');
+    yPosition += 2;
+    addText("IMPORTANTE", 12, true);
+    yPosition += 3;
+    doc.setFontSize(9);
+    addText("Este portafolio es válido de lunes a viernes de la semana actual.", 9);
+    addText("Los datos se actualizan cada semana según el mercado real.", 9);
+    addText("Consulta con un asesor financiero certificado antes de invertir.", 9);
+    
+    // Footer
+    yPosition = doc.internal.pageSize.getHeight() - 15;
+    doc.setFontSize(9);
+    doc.setTextColor(128, 128, 128);
+    doc.text(`© ${new Date().getFullYear()} SEFTI - Educación Financiera`, pageWidth / 2, yPosition, { align: 'center' });
 
-IMPORTANTE
-----------
-Este portafolio es válido de lunes a viernes de la semana actual.
-Los datos se actualizan cada semana según el mercado real.
-Consulta con un asesor financiero certificado antes de invertir.
-
-© ${new Date().getFullYear()} SEFTI - Educación Financiera
-    `.trim();
-
-    // Crear y descargar el archivo
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    const fileName = `SEFTI-Portafolio-${userName.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.txt`;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    // Guardar el PDF
+    const fileName = `SEFTI-Portafolio-${userName.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(fileName);
   };
 
   const handlePaymentSubmit = () => {
@@ -347,12 +392,6 @@ Consulta con un asesor financiero certificado antes de invertir.
                   />
                 </div>
               </div>
-            </div>
-
-            <div className="bg-blue-900/20 border border-blue-600/30 rounded-lg p-3 mb-6">
-              <p className="text-blue-200 text-xs">
-                <strong>Modo simulado:</strong> Esta es una transacción de prueba. No se realizará ningún cargo real.
-              </p>
             </div>
 
             <div className="flex gap-3">
