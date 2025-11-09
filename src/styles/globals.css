@@ -243,12 +243,18 @@ input, textarea, select {
   overscroll-behavior-x: none;
 }
 
-/* PWA: Safe area para dispositivos con notch */
+/* PWA: Safe area para dispositivos con notch - solo los lados */
 @supports (padding: max(0px)) {
   body {
-    padding-left: max(0px, env(safe-area-inset-left));
-    padding-right: max(0px, env(safe-area-inset-right));
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
-    padding-top: max(0px, env(safe-area-inset-top));
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* NO aplicar padding top/bottom para evitar franjas blancas */
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  /* Aplicar safe area al contenido interno en lugar del body */
+  #root > div {
+    padding-top: env(safe-area-inset-top);
   }
 }

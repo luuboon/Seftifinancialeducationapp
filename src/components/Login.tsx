@@ -47,7 +47,7 @@ export function Login({ onLogin, onSwitchToRegister }: LoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 flex items-center justify-center px-6">
+    <div className="h-full w-full bg-gradient-to-br from-black via-gray-900 to-red-950 flex items-center justify-center px-6 py-8">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex justify-center mb-8">
