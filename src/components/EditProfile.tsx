@@ -33,10 +33,11 @@ export function EditProfile({ currentProfile, userEmail, onCancel, onSave }: Edi
         <Button
           onClick={onCancel}
           variant="outline"
-          className="border-gray-700 text-white hover:bg-gray-800"
+          className=" border-red-500/30 text-red-400 hover:bg-red-500/10 py-6 rounded-xl"
         >
+          
           <ArrowLeft className="mr-2" size={18} />
-          Cancelar
+          Cancelar 
         </Button>
       </div>
       <ProfileForm onSubmit={handleProfileSubmit} initialData={currentProfile} />
