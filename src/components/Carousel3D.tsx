@@ -41,7 +41,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
       normalizedDiff = diff > 0 ? diff - total : diff + total;
     }
 
-    // Center item - tarjeta principal visible
+    // Center item - tarjeta principal
     if (normalizedDiff === 0) {
       return {
         x: "0%",
@@ -52,12 +52,34 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
         zIndex: 10,
       };
     }
-    // Ocultar tarjetas laterales completamente para evitar cortes
+    // Left item - tarjeta a la izquierda
+    else if (normalizedDiff === -1) {
+      return {
+        x: "-85%",
+        scale: 0.8,
+        rotateY: 25,
+        z: -100,
+        opacity: 0.6,
+        zIndex: 5,
+      };
+    }
+    // Right item - tarjeta a la derecha
+    else if (normalizedDiff === 1) {
+      return {
+        x: "85%",
+        scale: 0.8,
+        rotateY: -25,
+        z: -100,
+        opacity: 0.6,
+        zIndex: 5,
+      };
+    }
+    // Far items - tarjetas lejanas (ocultas)
     else {
       return {
-        x: "0%",
+        x: normalizedDiff > 0 ? "150%" : "-150%",
         scale: 0.5,
-        rotateY: 0,
+        rotateY: normalizedDiff > 0 ? -45 : 45,
         z: -200,
         opacity: 0,
         zIndex: 0,
@@ -96,11 +118,14 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
               style={{
                 zIndex: style.zIndex,
                 transformStyle: "preserve-3d",
-                pointerEvents: isCenter ? "auto" : "none",
+                pointerEvents: style.opacity > 0 ? "auto" : "none",
               }}
               onClick={() => {
                 if (isCenter) {
                   onSelectItem(item);
+                } else if (style.opacity > 0) {
+                  // Si es una tarjeta lateral visible, navegar a ella
+                  setCurrentIndex(index);
                 }
               }}
             >
