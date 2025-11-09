@@ -4,15 +4,21 @@
   "description": "Tu asistente financiero personal",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#030213",
+  "background_color": "#0A1628",
   "theme_color": "#FF4D00",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["finance", "education"],
