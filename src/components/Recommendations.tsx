@@ -110,8 +110,8 @@ export function Recommendations({ onNavigate, userProfile }: RecommendationsProp
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20">
-      <div className="px-6 pt-8">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 overflow-x-hidden">
+      <div className="px-6 pt-8 overflow-x-hidden">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
