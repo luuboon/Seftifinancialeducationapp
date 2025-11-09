@@ -156,7 +156,7 @@ export function ProfileForm({ onSubmit, initialData }: ProfileFormProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20">
+    <div className="h-full min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-950 pb-20 overflow-y-auto">
       <div className="px-6 pt-8">
         <div className="mb-6">
           <h1 className="text-white mb-2">Tu Perfil Financiero</h1>
