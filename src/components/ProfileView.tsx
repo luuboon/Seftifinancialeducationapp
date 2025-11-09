@@ -401,7 +401,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
                   setPaymentData({cardNumber: "", cardName: "", expiryDate: "", cvv: ""});
                 }}
                 variant="outline"
-                className="flex-1 border-gray-700 text-white hover:bg-gray-800"
+                className="flex-1 border-[#FF4D00] text-[#FF4D00] hover:bg-[#FF4D00]/10"
               >
                 Atrás
               </Button>
@@ -464,7 +464,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
             <Button
               onClick={() => setShowPremiumDialog(false)}
               variant="outline"
-              className="flex-1 border-gray-700 text-white hover:bg-gray-800"
+              className="flex-1 border-[#FF4D00] text-[#FF4D00] hover:bg-[#FF4D00]/10"
             >
               Cancelar
             </Button>
@@ -555,7 +555,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
               </div>
             </div>
 
-            <div className="flex items-start gap-4 mb-4">
+            <div className="flex items-start gap-4 mb-4 pr-20">
               <div className="bg-[#FF4D00]/20 p-4 rounded-2xl">
                 <Download size={32} className="text-[#FF4D00]" />
               </div>
