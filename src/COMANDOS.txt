@@ -1,0 +1,222 @@
+# ⚡ COMANDOS PARA COPIAR Y PEGAR
+
+# ========================================
+# PASO 1: SUBIR A GITHUB
+# ========================================
+
+# Ejecuta estos comandos en orden (uno por uno):
+
+git init
+
+git add .
+
+git commit -m "SEFTI - Sistema de Educación Financiera"
+
+# ⚠️ IMPORTANTE: Antes del siguiente comando:
+# 1. Ve a github.com/new
+# 2. Crea un repositorio llamado "sefti-app"
+# 3. NO marques "Initialize with README"
+# 4. Copia el link que te da (https://github.com/TU-USUARIO/sefti-app.git)
+# 5. REEMPLAZA "TU-USUARIO" en el comando de abajo con tu username real
+
+git remote add origin https://github.com/TU-USUARIO/sefti-app.git
+
+git branch -M main
+
+git push -u origin main
+
+
+# ========================================
+# PASO 2: DESPLEGAR EN VERCEL
+# ========================================
+
+# 1. Ve a vercel.com
+# 2. Sign up con GitHub
+# 3. Click "New Project"
+# 4. Importa "sefti-app"
+# 5. Click "Deploy"
+# 6. ¡Espera 2 minutos!
+# 7. ¡Listo! Copia tu link
+
+
+# ========================================
+# PARA MODIFICAR LA APP DESPUÉS
+# ========================================
+
+# Cada vez que hagas cambios:
+
+git add .
+
+git commit -m "Descripción de tus cambios"
+
+git push
+
+# Vercel actualiza automáticamente en 1-2 minutos
+
+
+# ========================================
+# SI YA TIENES EL REPO Y SOLO QUIERES ACTUALIZAR
+# ========================================
+
+git add .
+
+git commit -m "Actualización"
+
+git push
+
+
+# ========================================
+# EJEMPLO: CAMBIAR COLORES Y ACTUALIZAR
+# ========================================
+
+# 1. Edita styles/globals.css (cambia los colores)
+# 2. Guarda el archivo
+# 3. Ejecuta:
+
+git add styles/globals.css
+
+git commit -m "Cambié colores del tema"
+
+git push
+
+# 4. Espera 1-2 minutos
+# 5. Recarga el link de Vercel
+# 6. ¡Colores actualizados!
+
+
+# ========================================
+# VER HISTORIAL DE CAMBIOS
+# ========================================
+
+git log --oneline
+
+
+# ========================================
+# REVERTIR AL COMMIT ANTERIOR
+# ========================================
+
+git revert HEAD
+
+git push
+
+
+# ========================================
+# PROBAR LOCALMENTE ANTES DE SUBIR
+# ========================================
+
+npm install
+
+npm run dev
+
+# Abre http://localhost:5173
+# Si funciona bien, entonces haz push
+
+
+# ========================================
+# CUENTAS DEMO PARA PROBAR
+# ========================================
+
+Email: maria@demo.com
+Contraseña: demo123
+
+Email: juan@demo.com
+Contraseña: demo123
+
+Email: rosa@demo.com
+Contraseña: demo123
+
+Email: carlos@demo.com
+Contraseña: demo123
+
+
+# ========================================
+# LINKS IMPORTANTES
+# ========================================
+
+GitHub: https://github.com
+Crear repo: https://github.com/new
+Vercel: https://vercel.com
+Tu repo: https://github.com/TU-USUARIO/sefti-app
+Tu link de Vercel: https://sefti-app.vercel.app (o similar)
+
+
+# ========================================
+# ARCHIVOS QUE DEBEN ESTAR EN LA RAÍZ
+# ========================================
+
+✅ package.json
+✅ vite.config.ts
+✅ tsconfig.json
+✅ index.html
+✅ main.tsx
+✅ App.tsx
+✅ vercel.json
+✅ .gitignore
+
+
+# ========================================
+# ESTRUCTURA DE CARPETAS
+# ========================================
+
+sefti-app/
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+├── index.html
+├── main.tsx
+├── App.tsx
+├── vercel.json
+├── .gitignore
+├── components/
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   ├── Welcome.tsx
+│   ├── ... (todos los demás)
+│   └── ui/
+├── styles/
+│   └── globals.css
+└── utils/
+    └── demoData.ts
+
+
+# ========================================
+# TROUBLESHOOTING
+# ========================================
+
+# Error: "git: command not found"
+# Solución: Instala Git desde git-scm.com
+
+# Error: "Permission denied"
+# Solución:
+git remote set-url origin https://github.com/TU-USUARIO/sefti-app.git
+
+# Error: "Build failed en Vercel"
+# Solución: Ve a Vercel dashboard → Tu proyecto → Click en el deployment
+# que falló → Lee "Build Logs" para ver qué salió mal
+
+# Los cambios no se ven en el link
+# Solución: Espera 2 minutos, limpia caché (Ctrl+Shift+R)
+
+
+# ========================================
+# WORKFLOW COMPLETO
+# ========================================
+
+# 1. Editar código localmente
+# 2. Probar (opcional):
+npm run dev
+
+# 3. Subir cambios:
+git add .
+git commit -m "Descripción"
+git push
+
+# 4. Esperar 1-2 minutos
+# 5. Vercel actualiza automáticamente
+# 6. Recargar link de Vercel
+# 7. ¡Cambios en vivo!
+
+
+# ========================================
+# ¡ESO ES TODO! 🎉
+# ========================================
