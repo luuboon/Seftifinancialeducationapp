@@ -88,10 +88,10 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
   };
 
   return (
-    <div className="relative w-full py-8 px-2 overflow-visible">
+    <div className="relative w-full py-12 px-2 overflow-visible">
       {/* 3D Container */}
       <div 
-        className="relative h-[480px] flex items-center justify-center overflow-visible px-2"
+        className="relative h-[540px] flex items-center justify-center overflow-visible px-2"
         style={{ perspective: "1000px" }}
       >
         {items.map((item, index) => {
