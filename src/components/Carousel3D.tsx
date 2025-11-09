@@ -55,7 +55,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
     // Left item - tarjeta a la izquierda
     else if (normalizedDiff === -1) {
       return {
-        x: "-65%",
+        x: "-70%",
         scale: 0.85,
         rotateY: 15,
         z: -80,
@@ -66,7 +66,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
     // Right item - tarjeta a la derecha
     else if (normalizedDiff === 1) {
       return {
-        x: "65%",
+        x: "70%",
         scale: 0.85,
         rotateY: -15,
         z: -80,
@@ -88,10 +88,10 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
   };
 
   return (
-    <div className="relative w-full py-8 px-2 overflow-visible">
+    <div className="relative w-full py-8 px-1 overflow-visible">
       {/* 3D Container */}
       <div 
-        className="relative h-[480px] flex items-center justify-center overflow-visible px-2"
+        className="relative h-[480px] flex items-center justify-center overflow-visible"
         style={{ perspective: "1000px" }}
       >
         {items.map((item, index) => {
@@ -101,7 +101,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
           return (
             <motion.div
               key={item.id}
-              className="absolute w-full max-w-sm cursor-pointer px-2"
+              className="absolute w-full max-w-[340px] cursor-pointer px-1"
               initial={false}
               animate={{
                 x: style.x,
