@@ -1,0 +1,21 @@
+{
+  "name": "SEFTI - Educación Financiera",
+  "short_name": "SEFTI",
+  "description": "Tu asistente financiero personal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030213",
+  "theme_color": "#FF4D00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "education"],
+  "lang": "es-ES"
+}
+
