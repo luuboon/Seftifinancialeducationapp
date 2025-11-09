@@ -7,10 +7,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './'),
+      '@': path.resolve(__dirname, './src'), // ✅ apunta a tu carpeta de código fuente
     },
   },
+  base: './', // ✅ evita errores de rutas en producción (importante en Vercel)
   build: {
     outDir: 'dist',
+    sourcemap: false, // opcional, acelera el build
+    emptyOutDir: true, // limpia antes de construir
   },
 })
