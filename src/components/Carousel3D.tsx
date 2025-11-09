@@ -41,7 +41,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
       normalizedDiff = diff > 0 ? diff - total : diff + total;
     }
 
-    // Center item
+    // Center item - tarjeta principal visible
     if (normalizedDiff === 0) {
       return {
         x: "0%",
@@ -52,36 +52,24 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
         zIndex: 10,
       };
     }
-    // Right items
-    else if (normalizedDiff > 0) {
-      return {
-        x: `${50 + normalizedDiff * 30}%`,
-        scale: 0.75 - normalizedDiff * 0.15,
-        rotateY: -45 - normalizedDiff * 10,
-        z: -100 * normalizedDiff,
-        opacity: Math.max(0.3, 1 - normalizedDiff * 0.3),
-        zIndex: 10 - normalizedDiff,
-      };
-    }
-    // Left items
+    // Ocultar tarjetas laterales completamente para evitar cortes
     else {
-      const absDiff = Math.abs(normalizedDiff);
       return {
-        x: `${-50 - absDiff * 30}%`,
-        scale: 0.75 - absDiff * 0.15,
-        rotateY: 45 + absDiff * 10,
-        z: -100 * absDiff,
-        opacity: Math.max(0.3, 1 - absDiff * 0.3),
-        zIndex: 10 - absDiff,
+        x: "0%",
+        scale: 0.5,
+        rotateY: 0,
+        z: -200,
+        opacity: 0,
+        zIndex: 0,
       };
     }
   };
 
   return (
-    <div className="relative w-full py-12 overflow-x-hidden">
+    <div className="relative w-full py-8 px-4 overflow-visible">
       {/* 3D Container */}
       <div 
-        className="relative h-[400px] flex items-center justify-center overflow-hidden"
+        className="relative h-[480px] flex items-center justify-center overflow-visible"
         style={{ perspective: "1000px" }}
       >
         {items.map((item, index) => {
@@ -91,7 +79,7 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
           return (
             <motion.div
               key={item.id}
-              className="absolute w-72 cursor-pointer"
+              className="absolute w-full max-w-sm cursor-pointer px-4"
               initial={false}
               animate={{
                 x: style.x,
@@ -108,11 +96,10 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
               style={{
                 zIndex: style.zIndex,
                 transformStyle: "preserve-3d",
+                pointerEvents: isCenter ? "auto" : "none",
               }}
               onClick={() => {
-                if (!isCenter) {
-                  setCurrentIndex(index);
-                } else {
+                if (isCenter) {
                   onSelectItem(item);
                 }
               }}
