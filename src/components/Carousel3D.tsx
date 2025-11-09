@@ -55,22 +55,22 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
     // Left item - tarjeta a la izquierda
     else if (normalizedDiff === -1) {
       return {
-        x: "-85%",
-        scale: 0.8,
-        rotateY: 25,
-        z: -100,
-        opacity: 0.6,
+        x: "-75%",
+        scale: 0.9,
+        rotateY: 15,
+        z: -80,
+        opacity: 0.75,
         zIndex: 5,
       };
     }
     // Right item - tarjeta a la derecha
     else if (normalizedDiff === 1) {
       return {
-        x: "85%",
-        scale: 0.8,
-        rotateY: -25,
-        z: -100,
-        opacity: 0.6,
+        x: "75%",
+        scale: 0.9,
+        rotateY: -15,
+        z: -80,
+        opacity: 0.75,
         zIndex: 5,
       };
     }
@@ -112,8 +112,9 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
               }}
               transition={{
                 type: "spring",
-                stiffness: 300,
-                damping: 30,
+                stiffness: 260,
+                damping: 25,
+                mass: 0.8,
               }}
               style={{
                 zIndex: style.zIndex,
@@ -130,13 +131,13 @@ export function Carousel3D({ items, onSelectItem }: Carousel3DProps) {
               }}
             >
                 <div 
-                  className={`bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl overflow-hidden border-2 ${
-                    isCenter ? "border-[#FF4D00]" : "border-gray-800/20"
+                  className={`bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl overflow-hidden border-2 transition-all duration-300 ${
+                    isCenter ? "border-[#FF4D00]" : "border-gray-700/30"
                   }`}
                   style={{
                     boxShadow: isCenter 
-                      ? "0 20px 60px rgba(255, 77, 0, 0.4)" 
-                      : "0 10px 30px rgba(0, 0, 0, 0.3)"
+                      ? "0 25px 80px rgba(255, 77, 0, 0.5), 0 10px 40px rgba(255, 77, 0, 0.3)" 
+                      : "0 15px 40px rgba(0, 0, 0, 0.4), 0 5px 20px rgba(0, 0, 0, 0.2)"
                   }}
                 >
                   {/* Card Header */}
