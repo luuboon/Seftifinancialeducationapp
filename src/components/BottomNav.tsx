@@ -14,7 +14,10 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/95 border-t border-gray-700 px-2 py-2 max-w-md mx-auto backdrop-blur-sm">
+    <div 
+      className="fixed bottom-0 left-0 right-0 bg-black/95 border-t border-gray-700 px-2 pt-2 max-w-md mx-auto backdrop-blur-sm"
+      style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
+    >
       <div className="grid grid-cols-4 gap-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
