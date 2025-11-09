@@ -209,7 +209,7 @@ export function ProfileView({ userEmail, userName, profileData, onLogout, onEdit
               onClick={onEdit}
               variant="outline"
               size="sm"
-              className="border-gray-700 text-white hover:bg-gray-800"
+              className=" border-red-500/30 text-red-400 hover:bg-red-500/10 py-6 rounded-xl"
             >
               <Edit size={16} className="mr-1" />
               Editar
