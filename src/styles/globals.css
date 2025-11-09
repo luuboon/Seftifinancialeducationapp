@@ -133,10 +133,12 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    /* Fondo oscuro para cubrir cualquier área */
+    background: linear-gradient(to bottom right, #000000, #1a1a1a, #4a0a0a);
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     /* PWA: Deshabilitar el overscroll/bounce en móviles */
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
